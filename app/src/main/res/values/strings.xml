@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">FoodHub-Android</string>
+    <string name="skip">Skip\n</string>
+    <string name="welcome">Welcome to</string>
+    <string name="food_hub">FoodHub</string>
+    <string name="food_hub_desc">Your favourite foods delivered fast at your door.</string>
+    <string name="already_have_an_account">Already have an account? Login</string>
+    <string name="sign_with_email">Sign in with Email</string>
+    <string name="sign_in_with_google">Google</string>
+    <string name="sign_in_with_facebook">Facebook</string>
+    <string name="sign_in_title">SignIn</string>
 </resources>
