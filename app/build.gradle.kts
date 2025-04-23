@@ -61,6 +61,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    // Compose UI
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     // splash screen for Android 12+
     implementation(libs.androidx.core.splashscreen)
@@ -68,6 +70,7 @@ dependencies {
     // Hilt for dependency injection
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // Retrofit and Gson converter for API calls
     implementation (libs.retrofit)
