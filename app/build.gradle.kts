@@ -78,4 +78,6 @@ dependencies {
 
     // OkHttp for logging network requests and responses
     implementation(libs.logging.interceptor)
+
+    implementation(libs.androidx.navigation.compose)
 }
