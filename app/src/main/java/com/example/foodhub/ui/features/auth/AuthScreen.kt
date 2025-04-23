@@ -3,7 +3,6 @@ package com.example.foodhub.ui.features.auth
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -75,23 +74,19 @@ fun AuthScreen() {
                 .background(brush=brush)
         )
 
-//        Button(
-//            onClick = { /*TODO*/ },
-//            modifier = Modifier
-//                .align(Alignment.TopEnd)
-//                .padding(8.dp),
-//            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-//            shape = RoundedCornerShape(8.dp)
-//        ){
+        Button(
+            onClick = { /*TODO*/ },
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(8.dp)
+                .padding(vertical = 16.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+        ){
             Text(
                 text = stringResource(id=R.string.skip),
-                color = Orange,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.align(Alignment.TopEnd)
-                    .padding(12.dp).clickable { /*TODO*/ }
+                color = Orange
             )
-
+        }
 
         Column(
             modifier = Modifier.fillMaxWidth().padding(top=110.dp).padding(16.dp),
