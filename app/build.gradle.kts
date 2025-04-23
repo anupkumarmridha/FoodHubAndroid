@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -79,5 +80,9 @@ dependencies {
     // OkHttp for logging network requests and responses
     implementation(libs.logging.interceptor)
 
+    // navigation for Compose
     implementation(libs.androidx.navigation.compose)
+
+    // serialization for Kotlin data classes
+    implementation(libs.kotlinx.serialization.json)
 }

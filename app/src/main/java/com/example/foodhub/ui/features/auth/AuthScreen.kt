@@ -3,19 +3,15 @@ package com.example.foodhub.ui.features.auth
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -32,19 +28,22 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.foodhub.R
 import com.example.foodhub.ui.GroupSocialButtons
+import com.example.foodhub.ui.navigation.Login
+import com.example.foodhub.ui.navigation.SignUp
 import com.example.foodhub.ui.theme.Orange
 
 
 @Composable
-fun AuthScreen() {
+fun AuthScreen(navController: NavController) {
     val imageSize = remember {
         mutableStateOf(IntSize.Zero)
     }
@@ -123,7 +122,9 @@ fun AuthScreen() {
             GroupSocialButtons(onFacebookClick = { /*TODO*/ }, onGoogleClick = { /*TODO*/ })
             Spacer(modifier = Modifier.height(16.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.navigate(SignUp)
+                },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Gray.copy(alpha = 0.2f)),
                 shape = RoundedCornerShape(16.dp),
@@ -134,7 +135,9 @@ fun AuthScreen() {
                     color = Color.White
                 )
             }
-            TextButton(onClick = { /*TODO*/ }) {
+            TextButton(onClick = {
+                navController.navigate(Login)
+            }) {
                 Text(
                     text = stringResource(id = R.string.already_have_an_account),
                     color = Color.White
@@ -150,5 +153,5 @@ fun AuthScreen() {
 @Preview(showBackground = true)
 @Composable
 fun AuthScreenPreview() {
-    AuthScreen()
+    AuthScreen(rememberNavController())
 }

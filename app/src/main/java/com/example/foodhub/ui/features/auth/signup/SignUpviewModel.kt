@@ -2,6 +2,7 @@ package com.example.foodhub.ui.features.auth.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.foodhub.data.FoodApi
 import com.example.foodhub.data.models.SignUpRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -70,6 +71,12 @@ class SignUpviewModel @Inject constructor(val foodApi: FoodApi) : ViewModel() {
             }
         }
 
+    }
+
+    fun onLoginClicked() {
+        viewModelScope.launch {
+            _navigationEvent.emit(SignUpNavigationEvent.NavigationToLogin)
+        }
     }
 
     sealed class SignUpNavigationEvent {
