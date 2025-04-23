@@ -3,6 +3,7 @@ package com.example.foodhub.ui.features.auth
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -31,12 +33,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.foodhub.R
+import com.example.foodhub.ui.GroupSocialButtons
 import com.example.foodhub.ui.theme.Orange
 
 
@@ -71,20 +75,23 @@ fun AuthScreen() {
                 .background(brush=brush)
         )
 
-        Button(
-            onClick = { /*TODO*/ },
-            modifier = Modifier
-                .align(Alignment.TopEnd)
-                .padding(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-            shape = RoundedCornerShape(8.dp)
-
-        ){
+//        Button(
+//            onClick = { /*TODO*/ },
+//            modifier = Modifier
+//                .align(Alignment.TopEnd)
+//                .padding(8.dp),
+//            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+//            shape = RoundedCornerShape(8.dp)
+//        ){
             Text(
                 text = stringResource(id=R.string.skip),
-                color = Orange
+                color = Orange,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.align(Alignment.TopEnd)
+                    .padding(12.dp).clickable { /*TODO*/ }
             )
-        }
+
 
         Column(
             modifier = Modifier.fillMaxWidth().padding(top=110.dp).padding(16.dp),
@@ -118,48 +125,7 @@ fun AuthScreen() {
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ){
-            Text(text=stringResource(id=R.string.sign_in_title), color = Color.White)
-            Row(
-                modifier= Modifier.fillMaxWidth(),
-                horizontalArrangement =Arrangement.SpaceEvenly,
-            ) {
-                Button(
-                    onClick = {/*TODO*/},
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                    shape = RoundedCornerShape(16.dp)
-                ) {
-                    Row(
-                        modifier = Modifier.height(32.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_google),
-                            contentDescription = null,
-                            modifier = Modifier.size(24.dp)
-                        )
-                        Spacer(modifier = Modifier.size(8.dp))
-                        Text(text = stringResource(id=R.string.sign_in_with_google), color = Color.Black)
-                    }
-                }
-                Button(
-                    onClick = {/*TODO*/},
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                    shape = RoundedCornerShape(16.dp),
-                ) {
-                    Row(
-                        modifier = Modifier.height(32.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_facebook),
-                            contentDescription = null,
-                            modifier = Modifier.size(24.dp)
-                        )
-                        Spacer(modifier = Modifier.size(8.dp))
-                        Text(text = stringResource(id=R.string.sign_in_with_facebook), color = Color.Black)
-                    }
-                }
-            }
+            GroupSocialButtons(onFacebookClick = { /*TODO*/ }, onGoogleClick = { /*TODO*/ })
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = { /*TODO*/ },
