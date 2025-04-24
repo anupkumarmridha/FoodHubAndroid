@@ -85,4 +85,9 @@ dependencies {
 
     // serialization for Kotlin data classes
     implementation(libs.kotlinx.serialization.json)
+
+//    Sign In With Google
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
 }
