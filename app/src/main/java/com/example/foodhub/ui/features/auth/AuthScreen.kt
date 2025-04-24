@@ -131,7 +131,7 @@ fun AuthScreen(navController: NavController) {
                 border = BorderStroke(1.dp, Color.White)
             ) {
                 Text(
-                    text = stringResource(id = R.string.sign_with_email),
+                    text = stringResource(id = R.string.sign_up_with_email),
                     color = Color.White
                 )
             }
