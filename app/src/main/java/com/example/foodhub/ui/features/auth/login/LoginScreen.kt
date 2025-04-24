@@ -142,6 +142,7 @@ fun LoginScreen(
                     Text(
                         text = stringResource(R.string.email),
                         modifier = Modifier.fillMaxWidth(),
+                        color= Color.Gray
                     )
                 },
                 textStyle = LocalTextStyle.current.copy(
@@ -159,6 +160,7 @@ fun LoginScreen(
                     Text(
                         text = stringResource(R.string.password),
                         modifier = Modifier.fillMaxWidth(),
+                        color= Color.Gray
                     )
                 },
                 textStyle = LocalTextStyle.current.copy(
