@@ -1,5 +1,6 @@
 package com.example.foodhub.ui.features.auth.login
 
+import androidx.activity.ComponentActivity
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -253,14 +254,11 @@ fun LoginScreen(
                 textAlign = TextAlign.Center
             )
 
-            val context = LocalContext.current
+            val context = LocalContext.current as ComponentActivity
             GroupSocialButtons(
-                onFacebookClick = { /*TODO*/ },
-                onGoogleClick = {
-                    viewModel.onGoogleSignInClick(context)
-                },
-                color = Color.Black)
-
+                color = Color.Black,
+                viewModel = viewModel
+            )
         }
 
     }

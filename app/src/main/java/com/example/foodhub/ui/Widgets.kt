@@ -1,4 +1,5 @@
 package com.example.foodhub.ui
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -33,13 +35,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.foodhub.R
+import com.example.foodhub.ui.features.auth.BaseAuthViewModel
 import com.example.foodhub.ui.theme.Orange
 
 @Composable
 fun GroupSocialButtons(
-    onFacebookClick:()-> Unit,
-    onGoogleClick:()-> Unit,
-    color: Color = Color.White
+    color: Color = Color.White,
+    viewModel: BaseAuthViewModel
 ) {
 
     Column() {
@@ -68,12 +70,13 @@ fun GroupSocialButtons(
                 color = color
             )
         }
+        val context = LocalContext.current as ComponentActivity
         Row(
             modifier= Modifier.fillMaxWidth(),
             horizontalArrangement =Arrangement.SpaceEvenly,
         ) {
-            SocialButton(R.drawable.ic_facebook, R.string.sign_in_with_facebook, onFacebookClick)
-            SocialButton(R.drawable.ic_google, R.string.sign_in_with_google, onGoogleClick)
+            SocialButton(R.drawable.ic_facebook, R.string.sign_in_with_facebook, {viewModel.onFacebookSignInClick(context)})
+            SocialButton(R.drawable.ic_google, R.string.sign_in_with_google, {viewModel.onGoogleSignInClick(context)})
         }
     }
 }

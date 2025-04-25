@@ -259,7 +259,10 @@ fun SignUpScreen(
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center,
             )
-            GroupSocialButtons(onFacebookClick = { /*TODO*/ }, onGoogleClick = { /*TODO*/ }, color = Color.Black)
+            GroupSocialButtons(
+                color = Color.Black,
+                viewModel= viewModel
+            )
         }
     }
 }

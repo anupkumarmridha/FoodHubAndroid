@@ -1,15 +1,8 @@
 package com.example.foodhub.ui.features.auth.login
-
-import android.content.Context
-import android.util.Log
-import androidx.credentials.CredentialManager
-
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodhub.data.FoodApi
-import com.example.foodhub.data.auth.GoogleAuthUiProvider
 import com.example.foodhub.data.models.LoginRequest
-import com.example.foodhub.data.models.OAuthRequest
+import com.example.foodhub.ui.features.auth.BaseAuthViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,9 +13,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(val foodApi: FoodApi): ViewModel() {
-
-    val googleAuthUiProvider = GoogleAuthUiProvider()
+class LoginViewModel @Inject constructor(override val foodApi: FoodApi): BaseAuthViewModel(foodApi) {
 
     private val _uiState = MutableStateFlow<LoginEvent>(LoginEvent.Nothing)
     val uiState = _uiState.asStateFlow()
@@ -76,46 +67,34 @@ class LoginViewModel @Inject constructor(val foodApi: FoodApi): ViewModel() {
     }
 
     fun onForgotPasswordClick() {
+        TODO("Not yet implemented")
     }
 
-    fun onGoogleSignInClick(context: Context) {
+
+    override fun loading() {
         viewModelScope.launch {
-            _uiState.value = LoginEvent.Loading
-
-            try {
-
-                val response =googleAuthUiProvider.signIn(
-                    context,
-                    CredentialManager.create(context)
-                )
-
-                if (response != null) {
-
-                    val request = OAuthRequest(
-                        provider = "google",
-                        token = response.token,
-                    )
-
-                    val res = foodApi.oAuth(request)
-
-                    if (res.token.isNotEmpty()) {
-                        Log.d("LoginViewModel", "onGoogleSignInClick: ${res.token}")
-                        _uiState.value = LoginEvent.Success
-                        _navigationEvent.emit(LoginNavigationEvent.NavigateToHome)
-                    }else{
-                        _uiState.value = LoginEvent.Error
-                    }
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                _uiState.value = LoginEvent.Error
-            }
+            _uiState.value= LoginEvent.Loading
         }
     }
 
+    override fun onGoogleError(msg: String) {
+        viewModelScope.launch {
+            _uiState.value= LoginEvent.Error
+        }
+    }
 
+    override fun onFacebookError(msg: String) {
+        viewModelScope.launch {
+            _uiState.value= LoginEvent.Error
+        }
+    }
 
-
+    override fun onSocialLoginSuccess(token: String) {
+        viewModelScope.launch {
+            _uiState.value = LoginEvent.Success
+            _navigationEvent.emit(LoginNavigationEvent.NavigateToHome)
+        }
+    }
 
 
     sealed class LoginNavigationEvent{
