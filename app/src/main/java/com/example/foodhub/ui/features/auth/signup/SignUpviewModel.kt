@@ -88,13 +88,17 @@ class SignUpviewModel @Inject constructor(override val foodApi: FoodApi) : BaseA
 
     override fun onGoogleError(msg: String) {
         viewModelScope.launch {
-            _uiState.value = SignUpEvent.Error
+            errorMessage= msg
+            error="Google Sign In Error"
+            _uiState.value= SignUpEvent.Error
         }
     }
 
     override fun onFacebookError(msg: String) {
         viewModelScope.launch {
-            _uiState.value = SignUpEvent.Error
+            errorMessage= msg
+            error="Google Sign In Error"
+            _uiState.value= SignUpEvent.Error
         }
     }
 

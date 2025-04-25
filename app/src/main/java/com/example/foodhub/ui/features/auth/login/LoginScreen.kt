@@ -1,6 +1,4 @@
 package com.example.foodhub.ui.features.auth.login
-
-import androidx.activity.ComponentActivity
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -21,18 +19,23 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -49,6 +52,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.foodhub.R
+import com.example.foodhub.ui.BasicDialog
 import com.example.foodhub.ui.FoodHubTextField
 import com.example.foodhub.ui.GroupSocialButtons
 import com.example.foodhub.ui.navigation.AuthScreen
@@ -56,14 +60,15 @@ import com.example.foodhub.ui.navigation.Home
 import com.example.foodhub.ui.navigation.SignUp
 import com.example.foodhub.ui.theme.Orange
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     navController: NavController,
     viewModel: LoginViewModel = hiltViewModel()
 ){
-
     val emailState = viewModel.email.collectAsStateWithLifecycle()
     val passwordState = viewModel.password.collectAsStateWithLifecycle()
     val errorMessage = remember { mutableStateOf<String?>(null) }
@@ -85,6 +90,19 @@ fun LoginScreen(
             isLoading.value = false
             errorMessage.value = null
         }
+    }
+
+    val sheetState=rememberModalBottomSheetState()
+    val scope = rememberCoroutineScope()
+    var showDialog by remember {
+        mutableStateOf(false)
+    }
+
+    LaunchedEffect(errorMessage.value) {
+        if (errorMessage.value != null)
+            scope.launch {
+                showDialog = true
+            }
     }
 
     LaunchedEffect(true) {
@@ -253,14 +271,26 @@ fun LoginScreen(
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
-
-            val context = LocalContext.current as ComponentActivity
             GroupSocialButtons(
                 color = Color.Black,
                 viewModel = viewModel
             )
         }
+    }
 
+    if (showDialog) {
+        ModalBottomSheet(onDismissRequest = { showDialog = false }, sheetState = sheetState) {
+            BasicDialog(
+                title = viewModel.error,
+                message = viewModel.errorMessage,
+                onDismiss = {
+                    scope.launch {
+                        sheetState.hide()
+                        showDialog = false
+                    }
+                },
+            )
+        }
     }
 }
 

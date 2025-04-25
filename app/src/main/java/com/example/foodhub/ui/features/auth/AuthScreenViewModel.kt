@@ -33,13 +33,19 @@ class AuthScreenViewModel @Inject constructor( override val foodApi: FoodApi): B
 
     override fun onGoogleError(msg: String) {
         viewModelScope.launch {
+            errorMessage= msg
+            error="Google Sign In Error"
             _uiState.value= AuthEvent.Error
+            _navigationEvent.emit(AuthNavigationEvent.ShowErrorDialog)
         }
     }
 
     override fun onFacebookError(msg: String) {
         viewModelScope.launch {
+            errorMessage= msg
+            error="Google Sign In Error"
             _uiState.value= AuthEvent.Error
+            _navigationEvent.emit(AuthNavigationEvent.ShowErrorDialog)
         }
     }
 
@@ -54,6 +60,7 @@ class AuthScreenViewModel @Inject constructor( override val foodApi: FoodApi): B
     sealed class AuthNavigationEvent{
         object NavigateToHome: AuthNavigationEvent()
         object NavigateToSignUp: AuthNavigationEvent()
+        object ShowErrorDialog: AuthNavigationEvent()
     }
 
     sealed class AuthEvent{

@@ -4,6 +4,7 @@ import com.example.foodhub.data.models.AuthResponse
 import com.example.foodhub.data.models.LoginRequest
 import com.example.foodhub.data.models.OAuthRequest
 import com.example.foodhub.data.models.SignUpRequest
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -16,9 +17,9 @@ interface FoodApi {
     suspend fun signUp(@Body request: SignUpRequest): AuthResponse
 
     @POST("/auth/login")
-    suspend fun login(@Body request: LoginRequest): AuthResponse
+    suspend fun login(@Body request: LoginRequest): Response<AuthResponse>
 
     @POST("/auth/oauth")
-    suspend fun oAuth(@Body request: OAuthRequest): AuthResponse
+    suspend fun oAuth(@Body request: OAuthRequest): Response<AuthResponse>
 
 }

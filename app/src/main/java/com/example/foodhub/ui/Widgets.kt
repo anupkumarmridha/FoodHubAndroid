@@ -24,6 +24,7 @@ import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
@@ -171,3 +172,41 @@ fun FoodHubTextField(
             colors = colors
         )
     }
+
+
+@Composable
+fun BasicDialog(
+    title: String,
+    message: String,
+    onDismiss: () -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = title,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Spacer(modifier = Modifier.size(8.dp))
+        Text(
+            text = message,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+        Button(
+            onClick = onDismiss,
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Gray.copy(alpha = 0.2f)),
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            Text(
+                text = stringResource(id = R.string.ok),
+                color = Orange
+            )
+        }
+    }
+}
